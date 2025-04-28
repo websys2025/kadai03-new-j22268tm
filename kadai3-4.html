@@ -25,17 +25,45 @@
                 // 配列の内容を項目毎に出力
                 // ここにコードを書く
                 console.log(""); // 空行の出力
+                for (let a = 0; a < items.length; a++) {
+                    console.log("商品番号: " + items[a].id + ", 商品名: " + items[a].name + ", 金額: " + items[a].price + ", 在庫数: " + items[a].stock);
+                }
             }
 
             // 商品購入の関数
             function buyItem(no) {
                 // ここにコードを書く
-                showItemList(); // 商品一覧の表示関数呼び出し
+                console.log("");
+
+                // 商品番号のチェック
+                for(let i=0; i < items.length; i++){
+                    if ( items[i].id == no ) {
+                        break; // 商品番号が一致したらループを抜ける
+                    }else if ( i == items.length - 1 ){
+                        console.log("商品番号が不正です。"); // 商品番号が不正な場合のメッセージ
+                        showItemList(); // 商品一覧の表示関数呼び出し
+                        return; // 処理を終了
+                    }
+                }
+
+                // 在庫数の矛盾チェック
+                if ( items[no - 1].stock <= 0 ) {
+                    console.log("在庫がありません。");
+                    showItemList(); // 商品一覧の表示関数呼び出し
+                    return; // 在庫がない場合は処理を終了
+                }else{
+                
+
+                    // 在庫数の更新処理
+                    items[no - 1].stock = items[no - 1].stock - 1;
+                    console.log("商品番号: " + no + ",商品名: " + items[no - 1].name + "を購入します。");
+                    showItemList(); // 商品一覧の表示関数呼び出し
+                }
+                
             }
 
             showItemList(); // 商品一覧の表示関数呼び出し
             buyItem(3); // 商品購入の関数呼び出し
-
             buyItem(5); // 商品購入の関数呼び出し
             buyItem(5); // 商品購入の関数呼び出し
 
